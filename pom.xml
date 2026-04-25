@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<!-- Versão do modelo Maven -->
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- Define que o projeto usa Spring Boot -->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.5.0</version>
+		<relativePath/>
+	</parent>
+
+	<!-- Grupo do projeto -->
+	<groupId>com.victors</groupId>
+
+	<!-- Nome técnico do projeto -->
+	<artifactId>sistema-logradouro</artifactId>
+
+	<!-- Versão inicial do projeto -->
+	<version>0.0.1-SNAPSHOT</version>
+
+	<!-- Nome do projeto -->
+	<name>sistema-logradouro</name>
+
+	<!-- Descrição do projeto -->
+	<description>Sistema de cadastro de logradouros e endereços</description>
+
+	<!-- Configura a versão do Java -->
+	<properties>
+		<java.version>21</java.version>
+	</properties>
+
+	<dependencies>
+
+		<!-- Permite criar APIs REST com Controllers -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<!-- Permite usar JPA/Hibernate para banco de dados -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<!-- Permite validar dados com @NotBlank, @NotNull etc. -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+
+		<!-- Banco H2 em memória para desenvolvimento e testes -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- Reduz código repetitivo como getters, setters e construtores -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- Dependência padrão para testes -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+
+			<!-- Plugin para rodar e empacotar o projeto Spring Boot -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+		</plugins>
+	</build>
+
+</project>
