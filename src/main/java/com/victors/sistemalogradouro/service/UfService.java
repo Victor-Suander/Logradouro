@@ -4,7 +4,7 @@ import com.victors.sistemalogradouro.entity.Uf;
 import com.victors.sistemalogradouro.repository.UfRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
+import com.victors.sistemalogradouro.exception.RegraNegException;
 import java.util.List;
 
 @Service // onde ficam as regras de negócio
@@ -18,7 +18,7 @@ public class UfService {
 
         // Verifica se já existe um UF com a mesma sigla
         ufRepository.findBySigla(uf.getSigla()).ifPresent(existing -> {
-            throw new RuntimeException("UF já cadastado com essa sigla");
+            throw new RegraNegException("UF já cadastado com essa sigla");
         });
         // Salva o UF
         return ufRepository.save(uf);
