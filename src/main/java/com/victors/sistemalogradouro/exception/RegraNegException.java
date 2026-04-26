@@ -4,6 +4,6 @@ package com.victors.sistemalogradouro.exception;
 public class RegraNegException extends RuntimeException {
 
     public RegraNegException(String message){
-        super(message);
+        super(message);// chamar o construtor da classe pai
     }
 }
