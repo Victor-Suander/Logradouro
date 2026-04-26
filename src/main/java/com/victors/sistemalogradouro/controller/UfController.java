@@ -38,4 +38,11 @@ public class UfController {
         return ResponseEntity.ok(ufService.buscarPorId(id));
     }
 
+    @PutMapping("/{id}") //PUT /ufs/{id}
+    public ResponseEntity<UfResponseDTO> atualizar(
+            @PathVariable Long id,
+            @RequestBody @Valid UfRequestDTO dto) {
+
+        return ResponseEntity.ok(ufService.atualizar(id, dto));
+    }
 }

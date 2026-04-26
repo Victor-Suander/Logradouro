@@ -60,4 +60,31 @@ public class UfService {
                 uf.getNome()
         );
     }
+
+    // Atualiza uma UF existente
+    public UfResponseDTO atualizar(Long id, UfRequestDTO dto) {
+        Uf uf = ufRepository.findById(id)
+                .orElseThrow(() -> new RecursoNaoEncontradoException("UF não encontrada com esse ID"));
+
+        // Verifica Duplicidade (se a sigla for diferente)
+        ufRepository.findBySigla(dto.sigla())
+                .filter (u -> !u.getId().equals(id))
+                .ifPresent(u -> {
+                        throw new RegraNegException("Outra UF já cadastrada com essa sigla");
+
+                });
+
+        // Atualiza os dados
+        uf.setSigla(dto.sigla());
+        uf.setNome(dto.nome());
+
+        // Salva no bando de dados
+        Uf atualizado = ufRepository.save(uf);
+
+        return new UfResponseDTO(
+                atualizado.getId(),
+                atualizado.getSigla(),
+                atualizado.getNome()
+        );
+    }
 }
