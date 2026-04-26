@@ -45,4 +45,10 @@ public class UfController {
 
         return ResponseEntity.ok(ufService.atualizar(id, dto));
     }
+
+    @DeleteMapping("/{id}") //DELETE /ufs/{id}
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+        ufService.deletar(id);
+        return ResponseEntity.noContent().build();
+    }
 }

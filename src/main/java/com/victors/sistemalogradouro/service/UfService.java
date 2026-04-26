@@ -87,4 +87,16 @@ public class UfService {
                 atualizado.getNome()
         );
     }
+
+    // Remove uma UF por ID
+    public void deletar(Long id) {
+
+        // Busca a UF antes de deletar
+        Uf uf =  ufRepository.findById(id)
+                .orElseThrow(() -> new RecursoNaoEncontradoException("UF não encontrada com esse ID"));
+
+        // Delete do Banco de Dados
+        ufRepository.delete(uf);
+
+    }
 }
