@@ -1,8 +1,11 @@
 package com.victors.sistemalogradouro.controller;
 
 
+import com.victors.sistemalogradouro.dto.UfRequestDTO;
+import com.victors.sistemalogradouro.dto.UfResponseDTO;
 import com.victors.sistemalogradouro.entity.Uf;
 import com.victors.sistemalogradouro.service.UfService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,15 +21,16 @@ public class UfController {
     private final UfService ufService;
 
     @PostMapping //POST /ufs
-    public ResponseEntity<Uf> salvar(@RequestBody Uf uf) {
-        Uf ufSalva = ufService.salvar(uf);
+    public ResponseEntity<UfResponseDTO> salvar(@RequestBody @Valid UfRequestDTO dto) {
+
+        // Chama o service passando DTO
+        UfResponseDTO ufSalva = ufService.salvar(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(ufSalva);
     }
 
     @GetMapping //GET /ufs
-    public ResponseEntity<List<Uf>> listar() {
-        List<Uf> ufs = ufService.listar();
-        return ResponseEntity.ok(ufs);
+    public ResponseEntity<List<UfResponseDTO>> listar() {
+        return ResponseEntity.ok(ufService.listar());
     }
 
 }
