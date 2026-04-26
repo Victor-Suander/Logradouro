@@ -50,5 +50,15 @@ public class UfService {
                         uf.getNome()))
                 .toList();
     }
+
+    // Busca UF por ID
+    public UfResponseDTO buscarPorId(Long id) {
+        Uf uf = ufRepository.findById(id)
+                .orElseThrow(() -> new RegraNegException("UF não encontrada com esse ID"));
+        return new UfResponseDTO(
+                uf.getId(),
+                uf.getSigla(),
+                uf.getNome());
+    }
 }
 

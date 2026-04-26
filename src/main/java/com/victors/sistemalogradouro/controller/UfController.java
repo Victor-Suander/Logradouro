@@ -33,4 +33,9 @@ public class UfController {
         return ResponseEntity.ok(ufService.listar());
     }
 
+    @GetMapping("/{id}") //GET /ufs/{id}
+    public ResponseEntity<UfResponseDTO> buscarPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(ufService.buscarPorId(id));
+    }
+
 }
