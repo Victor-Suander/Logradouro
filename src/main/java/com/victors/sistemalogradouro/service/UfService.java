@@ -1,5 +1,7 @@
 package com.victors.sistemalogradouro.service;
 
+import com.victors.sistemalogradouro.dto.UfRequestDTO;
+import com.victors.sistemalogradouro.dto.UfResponseDTO;
 import com.victors.sistemalogradouro.entity.Uf;
 import com.victors.sistemalogradouro.repository.UfRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,18 +15,40 @@ public class UfService {
 
     // Repositorio para acessar o banco de dados
     private final UfRepository ufRepository;
-    // Salva um UF com validacao
-    public Uf salvar(Uf uf) {
+    // Salva um UF usando DTO
+    public UfResponseDTO salvar(UfRequestDTO dto) {
 
-        // Verifica se já existe um UF com a mesma sigla
-        ufRepository.findBySigla(uf.getSigla()).ifPresent(existing -> {
-            throw new RegraNegException("UF já cadastado com essa sigla");
-        });
-        // Salva o UF
-        return ufRepository.save(uf);
+        // Valida Duplicidade
+        ufRepository.findBySigla(dto.sigla())
+                .ifPresent(u -> {
+                    throw new RegraNegException("UF Já cadastrado com essa sigla");
+                });
+
+        // Converte DTO para Entity
+        Uf uf = Uf.builder()
+                .sigla(dto.sigla())
+                .nome(dto.nome())
+                .build();
+
+        // Salva no banco de dados
+        Uf salva = ufRepository.save(uf);
+
+        // Converte Entity para DTO
+        return new UfResponseDTO(
+                salva.getId(),
+                salva.getSigla(),
+                salva.getNome());
     }
-    // Lista todos os UFs
-    public List<Uf> listar() {
-        return ufRepository.findAll();
+
+    // Lista todos os UFs como DTO
+    public List<UfResponseDTO> listar() {
+        return ufRepository.findAll()
+                .stream()
+                .map(uf -> new UfResponseDTO(
+                        uf.getId(),
+                        uf.getSigla(),
+                        uf.getNome()))
+                .toList();
     }
 }
+
